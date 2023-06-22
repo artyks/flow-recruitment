@@ -27,16 +27,19 @@ The next step is to visualise (schematically) the application presentation layer
 - then goes roots' children: Form -> Question(s), Form -> Response(s) -> Answer(s)
 - in the end we have smth like: Form, FormQuestion, FormResponse, FormResponseAnswer, User, ProductCategory
 
+> FormResponse model is needed to handle both uncompleted and completed states of form response. Otherwise, we could omit it and link answers with questions directly.
+
 > somewhere between points 3-4, author was thinking about using document-oriented database (MongoDB), but even though it looks like a perfect use case for this kind of dbs, author has strong opinion on no-SQL databases. They should be used targetedly for dealing with performance issues as a read model with denormalised data. When the project is new, we cannot foresee everything, thus author would always bet on flexibility first, but perfomance. What's more, in the task project, there shouldn't be any problems with perfomance (we have just a few forms and no list with them).
 
 4. Elaborate interfaces of domain entities
 - here author thinks on user flows and possible features. 
 - For instance, form's questions have order. There are different ways to implement order in SQL databases. When the implementation is important..? Right, during form editing.. (which is out of task boundaries of course) How do forms are imported/created/edited? Most likely, in the future, there would be some sort of UI for creating/updating forms. And form editor usually requires drag-n-drop functionality. Which means that author (for this case) can use prevQuestionId field on FormQuestion model.
 - another important feature is form persistence. What if form was updated after user saved his response? To avoid collisions, we need a version field on Form model. 
-- also, there is 'save for later' feature. Which means that form response can have different states: smth like draft/published. How many states do we have? Only 2. And probably it would be a maximum (there could be some workflows like 'review' or smth custom, but that's definitely not the case :) Then we can simply use isCompleted flag.
-- question inputs often have constraints, like min/maxCharacters or maxFileSize. Even though this project will miss this feature, author can add this constraints field (let's say 'just because'..). This constraints could vary among deffirent types of inputs (like text input and assets input). A good approach would be to use a JSON data type for this field. Typescript will later handle it type depending on type of input, and we will not need indexing them (for sure).
-- answers has values and those values could have different schema. To handle that we can use JSON data type. 
+- also, there is a 'save for later' feature. Which means that form response can have different states: smth like draft/published. How many states do we have? Only 2. And probably it would be a maximum (there could be some workflows like 'review' or smth custom, but that's definitely not the case :) Then we can simply use isCompleted flag.
+- answers have values and those values could have different schema. To handle that we can use JSON data type or fields with different data types like valueString, valueNumber, valueYN. Authour prefers JSON though, it's more flexible and limitations like possible issues with indexing are not important here.
 
 > Important note. Since Prisma doesn't support JSON data type on SQLite (author decided to use it as the simplest solution), author will use JSON.stringify() method and save answers' values as a string data type. Which will definetely cause some inconviniece with typing it, but we have what we have. :)
 
-- TODO: conditional visibility of questions
+- for handling questions' conditional visibility, author decided to implement some sort of policy based ACL. Simply saying, we can create another table with visibility rules. Thus, we can define a model FormQuestionsVisibilityRule.
+
+- question inputs (answer values) often have constraints (like min/maxCharacters or maxFileSize). These constraints could vary among deffirent types of inputs (like text input and assets input). A good approach would be to use a JSON data type for this field, because there could be a looot of different constraints. Typescript will later handle it type depending on type of input, and we will not need to index them (for sure). What's more, questions could be reqired and optional, author could add those fields, but those features are out of the scope, so author will omit them, as well as implementation of form validation. :)
