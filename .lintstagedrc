@@ -1,0 +1,3 @@
+{
+  "*.{js,jsx,ts,tsx,html,json,vue}": ["nx format:write --uncommitted"]
+}
