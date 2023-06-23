@@ -1,18 +1,46 @@
-import { IsArray, IsOptional, IsUUID, ValidateNested } from 'class-validator';
+import { FormQuestionInputTypeEnum } from '@flow-recruitment/forms/constants';
+import {
+  ArrayNotEmpty,
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+  ValidateNested,
+} from 'class-validator';
 
-class CreateFormResponseAnswerDto {
+class CreateFormQuestionVisibilityRule {
   @IsUUID()
   questionId: string;
+
+  @IsUUID()
+  dependOnQuestionId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  requiredValue: string;
 }
 
-class CreateFormResponseDto {
-  @IsUUID()
-  formId: string;
+class CreateFormQuestionDto {
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+
+  @IsEnum(FormQuestionInputTypeEnum)
+  inputType: FormQuestionInputTypeEnum;
 
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
-  answers?: CreateFormResponseAnswerDto[];
+  visibilityRules?: CreateFormQuestionVisibilityRule[];
 }
 
-export { CreateFormResponseDto };
+class CreateFormDto {
+  @IsArray()
+  @ArrayNotEmpty()
+  @ValidateNested({ each: true })
+  questions: CreateFormQuestionDto[];
+}
+
+export { CreateFormDto };
