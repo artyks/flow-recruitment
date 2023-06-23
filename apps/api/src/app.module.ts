@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { loadConfig } from './config/config';
 import { FormsModule } from './forms/forms.module';
+import { ProductCategoriesModule } from './product-categories/product-categories.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { FormsModule } from './forms/forms.module';
       load: [loadConfig],
     }),
     FormsModule,
+    ProductCategoriesModule,
   ],
   controllers: [AppController],
 })
