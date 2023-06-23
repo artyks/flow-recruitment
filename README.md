@@ -6,7 +6,7 @@ The general idea of the application is to allow potential customers to use offer
 
 We will take vehicle insurance offers, and car deals as our example product categories.
 
-## Mindflow 
+## Mindflow
 
 ### Day 1
 
@@ -15,16 +15,19 @@ We will take vehicle insurance offers, and car deals as our example product cate
 Author started from analysis by reading the task requirements "ten" times in a row and understanding user story.
 
 The next step is to visualise (schematically) the application presentation layer -- possible website pages/views, author noted the following ones:
+
 - a home page for selecting product category with a list of "saved for later" links.
 - a view with a form (either search or purchase). In the real app, most likely those would be different views, cause they are from different boundary contexts (in practice, they would have different designs), but the requirements of the task allow and encourage author to utilise polymorphism, thus he has decided to stay within one view for all the types of forms.
 - a view with products per each product category
 
 2. Analysis of user flows and features
+
 - It's just so important that author decided to highlite it by separating from the 1st point
 - Here author thinks about user flows from the technical perspective
 - Possible questions to ask yourself: is it realistic to develop? what are possible difficulties? which tools to use? Any ideas on how to provide a better UX? (for instance, do we need 'auto save' feature when user edits answers) Which architecture to use? etc.
 
 3. Based on analysis of user flows, define domain entities and some of their connections
+
 - author starts from finding aggregate roots: Form, ProductCategory, User
 - then goes roots' children: Form -> Question(s), Form -> Response(s) -> Answer(s)
 - in the end we have smth like: Form, FormQuestion, FormResponse, FormResponseAnswer, User, ProductCategory
@@ -34,7 +37,8 @@ The next step is to visualise (schematically) the application presentation layer
 > somewhere between points 3-4, author was thinking about using document-oriented database (MongoDB), but even though it looks like a perfect use case for this kind of dbs, author has strong opinion on no-SQL databases. They should be used targetedly for dealing with performance issues as a read model with denormalised data. When the project is new, we cannot foresee everything, thus author would always bet on flexibility first, but not perfomance. What's more, in the task project, there shouldn't be any problems with perfomance (we have just a few forms and no list with them).
 
 4. Elaborate interfaces of domain entities
-- here author thinks on user flows and possible features. 
+
+- here author thinks on user flows and possible features.
 - For instance, form's questions have order. There are different ways to implement order in SQL databases. When the implementation is important..? Right, during form editing.. (which is out of task boundaries of course) How do forms are imported/created/edited? Most likely, in the future, there would be some sort of UI for creating/updating forms. And form editor usually requires drag-n-drop functionality. Which means that author (for this case) can use prevQuestionId field on FormQuestion model. Though it's out of task requirements.
 - another important feature is form persistence. What if form was updated after user saved his response? To avoid collisions, we need a version field on Form model.
 - also, there is a 'save for later' feature. Which means that form response can have different states: smth like draft/published. How many states do we have? Only 2. And probably it would be a maximum (there could be some workflows like 'review' or smth custom, but that's definitely not the case :) Then we can simply use isCompleted flag.
@@ -48,7 +52,8 @@ The next step is to visualise (schematically) the application presentation layer
 
 ### Day 2
 
-The plan for Day 2 is the following: 
+The plan for Day 2 is the following:
+
 - to setup project monorepo
 - setup prisma module
 - define prisma schemes (domain entities)
@@ -56,6 +61,27 @@ The plan for Day 2 is the following:
 - decide on backend application architecture (what layers will be used, the simplest solution would be controllers with services, probably models; as a repository we have prisma client; maybe CQRS could be applied or event driven architecture; etc.)
 - implement API as much as possible :)
 
-> Note: while we can explicitly set version of Form (blueprint), the current database design allows us to omit it, because we have Form id, and if the FormResponse's formId doesn't match with currently setted (used) Form id, we can simply ignore FormResponse and ask user to fill the form again. While form versioning could be more valuable if we had a UI where user could edit form blueprint and rollback to the previous version. But that's a different story.
+> Idea: while we can explicitly set version of Form (blueprint), the current database design allows us to omit it, because we have Form id, and if the FormResponse's formId doesn't match with currently setted (used) Form id, we can simply ignore FormResponse and ask user to fill the form again. While form versioning could be more valuable if we had a UI where user could edit form blueprint and rollback to the previous version. But that's a different story.
 
-1. 
+### Day2 Results:
+
+- [x] configure monorepo
+- [x] configure api app
+- [x] setup prisma
+- [x] define prisma schemes
+- [x] design api endpoints
+- [x] api architecture
+- [x] develop dtos
+- [x] develop api services, except FormResponsesService :)
+
+## Day 3
+
+The plan for Day 3 is the following:
+
+- complete api services (FormResponsesService)
+- develop api controllers (FormResponsesService)
+- create prisma seed
+- configure frontend app
+- implement frontend as much as possible :)
+
+### Day3 Results:
