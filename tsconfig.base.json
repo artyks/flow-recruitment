@@ -19,7 +19,8 @@
       "@flow-recruitment/forms/constants": ["libs/forms/constants/src/index.ts"],
       "@flow-recruitment/forms/dtos": ["libs/forms/dtos/src/index.ts"],
       "@flow-recruitment/forms/types": ["libs/forms/types/src/index.ts"],
-      "@flow-recruitment/prisma": ["libs/prisma/src/index.ts"]
+      "@flow-recruitment/prisma": ["libs/prisma/src/index.ts"],
+      "@flow-recruitment/users/dtos": ["libs/users/dtos/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
