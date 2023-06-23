@@ -56,6 +56,6 @@ The plan for Day 2 is the following:
 - decide on backend application architecture (what layers will be used, the simplest solution would be controllers with services, probably models; as a repository we have prisma client; maybe CQRS could be applied or event driven architecture; etc.)
 - implement API as much as possible :)
 
-> Note: while we can explicitly set version of Form (blueprint), the current database design allows is to ommit it, because we have Form id, and if the FormResponse's formId doesn't match with currently setted (used) Form id, we can simply ignore FormResponse and ask user to fill the form again. While form versioning could be more valuable if we had a UI where user could edit form blueprint and rollback to the previous version. But that's a different story.
+> Note: while we can explicitly set version of Form (blueprint), the current database design allows us to omit it, because we have Form id, and if the FormResponse's formId doesn't match with currently setted (used) Form id, we can simply ignore FormResponse and ask user to fill the form again. While form versioning could be more valuable if we had a UI where user could edit form blueprint and rollback to the previous version. But that's a different story.
 
 1. 
