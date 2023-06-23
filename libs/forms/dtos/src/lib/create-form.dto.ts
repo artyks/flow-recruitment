@@ -12,10 +12,7 @@ import {
 
 class CreateFormQuestionVisibilityRule {
   @IsUUID()
-  questionId: string;
-
-  @IsUUID()
-  dependOnQuestionId: string;
+  dependOnAnchor: string;
 
   @IsString()
   @IsNotEmpty()
@@ -31,6 +28,10 @@ class CreateFormQuestionDto {
   inputType: FormQuestionInputTypeEnum;
 
   @IsOptional()
+  @IsUUID()
+  anchor?: string;
+
+  @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   visibilityRules?: CreateFormQuestionVisibilityRule[];
@@ -43,4 +44,4 @@ class CreateFormDto {
   questions: CreateFormQuestionDto[];
 }
 
-export { CreateFormDto };
+export { CreateFormDto, CreateFormQuestionVisibilityRule, CreateFormQuestionDto };
