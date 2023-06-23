@@ -21,7 +21,6 @@ model User {
 model ProductCategory {
   id             String   @id @default(uuid())
   name           String
-  codename       String
   formPurchase   Form     @relation("FormPurchase", fields: [formPurchaseId], references: [id])
   formPurchaseId String   @unique
   formSearch     Form     @relation("FormSearch", fields: [formSearchId], references: [id])
