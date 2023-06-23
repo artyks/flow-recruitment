@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { loadConfig } from './config/config';
 import { FormsModule } from './forms/forms.module';
 import { ProductCategoriesModule } from './product-categories/product-categories.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ProductCategoriesModule } from './product-categories/product-categories
     }),
     FormsModule,
     ProductCategoriesModule,
+    UsersModule,
   ],
   controllers: [AppController],
 })
