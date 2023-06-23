@@ -63,7 +63,7 @@ The plan for Day 2 is the following:
 
 > Idea: while we can explicitly set version of Form (blueprint), the current database design allows us to omit it, because we have Form id, and if the FormResponse's formId doesn't match with currently setted (used) Form id, we can simply ignore FormResponse and ask user to fill the form again. While form versioning could be more valuable if we had a UI where user could edit form blueprint and rollback to the previous version. But that's a different story.
 
-### Day2 Results:
+#### Results:
 
 - [x] configure monorepo
 - [x] configure api app
@@ -74,7 +74,7 @@ The plan for Day 2 is the following:
 - [x] develop dtos
 - [x] develop api services, except FormResponsesService :)
 
-## Day 3
+### Day 3
 
 The plan for Day 3 is the following:
 
@@ -84,4 +84,4 @@ The plan for Day 3 is the following:
 - configure frontend app
 - implement frontend as much as possible :)
 
-### Day3 Results:
+#### Results:
