@@ -8,6 +8,8 @@ We will take vehicle insurance offers, and car deals as our example product cate
 
 ## Mindflow 
 
+### Day 1
+
 1. Analysis and understanding requirements
 
 Author started from analysis by reading the task requirements "ten" times in a row and understanding user story.
@@ -29,17 +31,31 @@ The next step is to visualise (schematically) the application presentation layer
 
 > FormResponse model is needed to handle both uncompleted and completed states of form response. Otherwise, we could omit it and link answers with questions directly.
 
-> somewhere between points 3-4, author was thinking about using document-oriented database (MongoDB), but even though it looks like a perfect use case for this kind of dbs, author has strong opinion on no-SQL databases. They should be used targetedly for dealing with performance issues as a read model with denormalised data. When the project is new, we cannot foresee everything, thus author would always bet on flexibility first, but perfomance. What's more, in the task project, there shouldn't be any problems with perfomance (we have just a few forms and no list with them).
+> somewhere between points 3-4, author was thinking about using document-oriented database (MongoDB), but even though it looks like a perfect use case for this kind of dbs, author has strong opinion on no-SQL databases. They should be used targetedly for dealing with performance issues as a read model with denormalised data. When the project is new, we cannot foresee everything, thus author would always bet on flexibility first, but not perfomance. What's more, in the task project, there shouldn't be any problems with perfomance (we have just a few forms and no list with them).
 
 4. Elaborate interfaces of domain entities
 - here author thinks on user flows and possible features. 
-- For instance, form's questions have order. There are different ways to implement order in SQL databases. When the implementation is important..? Right, during form editing.. (which is out of task boundaries of course) How do forms are imported/created/edited? Most likely, in the future, there would be some sort of UI for creating/updating forms. And form editor usually requires drag-n-drop functionality. Which means that author (for this case) can use prevQuestionId field on FormQuestion model.
-- another important feature is form persistence. What if form was updated after user saved his response? To avoid collisions, we need a version field on Form model. 
+- For instance, form's questions have order. There are different ways to implement order in SQL databases. When the implementation is important..? Right, during form editing.. (which is out of task boundaries of course) How do forms are imported/created/edited? Most likely, in the future, there would be some sort of UI for creating/updating forms. And form editor usually requires drag-n-drop functionality. Which means that author (for this case) can use prevQuestionId field on FormQuestion model. Though it's out of task requirements.
+- another important feature is form persistence. What if form was updated after user saved his response? To avoid collisions, we need a version field on Form model.
 - also, there is a 'save for later' feature. Which means that form response can have different states: smth like draft/published. How many states do we have? Only 2. And probably it would be a maximum (there could be some workflows like 'review' or smth custom, but that's definitely not the case :) Then we can simply use isCompleted flag.
 - answers have values and those values could have different schema. To handle that we can use JSON data type or fields with different data types like valueString, valueNumber, valueYN. Authour prefers JSON though, it's more flexible and limitations like possible issues with indexing are not important here.
 
 > Important note. Since Prisma doesn't support JSON data type on SQLite (author decided to use it as the simplest solution), author will use JSON.stringify() method and save answers' values as a string data type. Which will definetely cause some inconviniece with typing it, but we have what we have. :)
 
-- for handling questions' conditional visibility, author decided to implement some sort of policy based ACL. Simply saying, we can create another table with visibility rules. Thus, we can define a model FormQuestionsVisibilityRule.
+- for handling questions' conditional visibility, author decided to implement some sort of policy based ACL. Simply saying, we can create another table with visibility rules. Thus, we can define a model FormQuestionsVisibilityRule. Drawback of the simplest implementation of this table is that we can defined rules with AND condition (like RULE_A AND RULE_B AND ...), but not with OR. Author decided not to dive deep into the issue, cause task requirements don't suppose more than 1 rule, which means this implementation satisfies them.
 
 - question inputs (answer values) often have constraints (like min/maxCharacters or maxFileSize). These constraints could vary among deffirent types of inputs (like text input and assets input). A good approach would be to use a JSON data type for this field, because there could be a looot of different constraints. Typescript will later handle it type depending on type of input, and we will not need to index them (for sure). What's more, questions could be reqired and optional, author could add those fields, but those features are out of the scope, so author will omit them, as well as implementation of form validation. :)
+
+### Day 2
+
+The plan for Day 2 is the following: 
+- to setup project monorepo
+- setup prisma module
+- define prisma schemes (domain entities)
+- desing API endpoints based on user flow analysis (simple REST should be enough, but maybe some sort of RPC style of its commands could be applied)
+- decide on backend application architecture (what layers will be used, the simplest solution would be controllers with services, probably models; as a repository we have prisma client; maybe CQRS could be applied or event driven architecture; etc.)
+- implement API as much as possible :)
+
+> Note: while we can explicitly set version of Form (blueprint), the current database design allows is to ommit it, because we have Form id, and if the FormResponse's formId doesn't match with currently setted (used) Form id, we can simply ignore FormResponse and ask user to fill the form again. While form versioning could be more valuable if we had a UI where user could edit form blueprint and rollback to the previous version. But that's a different story.
+
+1. 
