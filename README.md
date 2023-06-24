@@ -85,3 +85,6 @@ The plan for Day 3 is the following:
 - implement frontend as much as possible :)
 
 #### Results:
+
+- [x] complete api services
+- [x] develop api controllers
