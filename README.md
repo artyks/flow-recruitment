@@ -79,7 +79,7 @@ The plan for Day 2 is the following:
 The plan for Day 3 is the following:
 
 - complete api services (FormResponsesService)
-- develop api controllers (FormResponsesService)
+- develop api controllers
 - create prisma seed
 - configure frontend app
 - implement frontend as much as possible :)
