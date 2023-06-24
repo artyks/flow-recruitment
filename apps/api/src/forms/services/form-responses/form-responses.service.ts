@@ -1,11 +1,11 @@
-import { CreateFormResponseDto, FindMyFormResponseParams } from '@flow-recruitment/forms/dtos';
+import { CreateFormResponseDto, FindOrCreateMyFormResponseByFormIdDto } from '@flow-recruitment/forms/dtos';
 import { PrismaClientService, callWithInjectedPrismaTransaction } from '@flow-recruitment/prisma';
 import { Injectable } from '@nestjs/common';
 import { FormResponseAnswersService } from '../form-response-answers/form-response-answers.service';
 import { WithUserId } from '@flow-recruitment/common/types';
 
 type CreateFormResponsePayload = CreateFormResponseDto & WithUserId;
-type FindMyFormResponsePayload = FindMyFormResponseParams & WithUserId;
+type FindMyFormResponsePayload = FindOrCreateMyFormResponseByFormIdDto & WithUserId;
 type FindMyUncompletedFormResponsesPayload = WithUserId;
 
 @Injectable()
@@ -16,7 +16,7 @@ export class FormResponsesService {
   ) {}
 
   async findMyByFormId({ userId, formId }: FindMyFormResponsePayload) {
-    return await this.prisma.formResponse.findFirstOrThrow({ where: { userId, formId }, include: { answers: true } });
+    return await this.prisma.formResponse.findFirst({ where: { userId, formId }, include: { answers: true } });
   }
 
   async findMyUncompleted({ userId }: FindMyUncompletedFormResponsesPayload) {
@@ -25,13 +25,13 @@ export class FormResponsesService {
 
   async createOne({ answers, formId, userId }: CreateFormResponsePayload) {
     /**
-     * Eagerly generate formResponse id to use it later with answers
+     * Eagerly generate response id to use it later with answers
      */
     const formResponseId = crypto.randomUUID();
 
     return await this.prisma.$transaction(async (tx) => {
       /**
-       * Create form
+       * Create response
        */
       await tx.formResponse.create({
         data: {
@@ -42,7 +42,7 @@ export class FormResponsesService {
       });
 
       /**
-       * Create form response's answers
+       * Create response's answers
        */
       if (answers) {
         await callWithInjectedPrismaTransaction({
@@ -52,6 +52,14 @@ export class FormResponsesService {
           args: [{ formResponseId, answerDtos: answers }],
         });
       }
+
+      /**
+       * Retrieve and return created response filled with answers
+       */
+      return await tx.formResponse.findUniqueOrThrow({
+        where: { id: formResponseId },
+        include: { answers: true },
+      });
     });
   }
 }

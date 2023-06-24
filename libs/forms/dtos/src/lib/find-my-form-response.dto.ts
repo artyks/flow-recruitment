@@ -1,8 +1,8 @@
 import { IsUUID } from 'class-validator';
 
-class FindMyFormResponseParams {
+class FindOrCreateMyFormResponseByFormIdDto {
   @IsUUID()
   formId: string;
 }
 
-export { FindMyFormResponseParams };
+export { FindOrCreateMyFormResponseByFormIdDto };
