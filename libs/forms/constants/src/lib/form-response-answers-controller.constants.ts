@@ -1,0 +1,3 @@
+const ENDPOINT_FORM_RESPONSE_ANSWERS_SLUG = 'form-response-answers';
+
+export { ENDPOINT_FORM_RESPONSE_ANSWERS_SLUG };

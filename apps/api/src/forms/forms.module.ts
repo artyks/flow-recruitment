@@ -6,6 +6,7 @@ import { FormQuestionsService } from './services/form-questions/form-questions.s
 import { FormQuestionVisibilityRulesService } from './services/form-question-visibility-rules/form-question-visibility-rules.service';
 import { FormsController } from './controllers/forms/forms.controller';
 import { FormResponsesController } from './controllers/form-responses/form-responses.controller';
+import { FormResponseAnswersController } from './controllers/form-response-answers/form-response-answers.controller';
 
 @Module({
   providers: [
@@ -15,6 +16,6 @@ import { FormResponsesController } from './controllers/form-responses/form-respo
     FormQuestionsService,
     FormQuestionVisibilityRulesService,
   ],
-  controllers: [FormsController, FormResponsesController],
+  controllers: [FormsController, FormResponsesController, FormResponseAnswersController],
 })
 export class FormsModule {}
