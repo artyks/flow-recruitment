@@ -10,7 +10,7 @@ export class FormsService {
     private readonly formQuestionsSerive: FormQuestionsService,
   ) {}
 
-  async findOne(id: string) {
+  async findOneOrThrow(id: string) {
     return await this.prisma.form.findUniqueOrThrow({
       where: { id },
       include: { questions: { include: { visibilityRules: true } } },
