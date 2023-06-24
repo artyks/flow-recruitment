@@ -1,11 +1,8 @@
 import { IsOptional, IsString, IsUUID } from 'class-validator';
 
-class UpdateFormResponseAnswerValueQuery {
+class UpdateFormResponseAnswerValueParams {
   @IsUUID()
-  questionId: string;
-
-  @IsUUID()
-  formResponseId: string;
+  id: string;
 }
 
 class UpdateFormResponseAnswerValueDto {
@@ -14,4 +11,4 @@ class UpdateFormResponseAnswerValueDto {
   newValue?: string | null; /** JSON string or null */
 }
 
-export { UpdateFormResponseAnswerValueDto, UpdateFormResponseAnswerValueQuery };
+export { UpdateFormResponseAnswerValueDto, UpdateFormResponseAnswerValueParams };

@@ -15,4 +15,4 @@ class CreateFormResponseDto {
   answers?: CreateFormResponseAnswerDto[];
 }
 
-export { CreateFormResponseDto };
+export { CreateFormResponseDto, CreateFormResponseAnswerDto };
