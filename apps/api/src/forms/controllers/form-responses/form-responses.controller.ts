@@ -18,7 +18,10 @@ export class FormResponsesController {
   constructor(private readonly formResponsesService: FormResponsesService) {}
 
   @Get(FIND_MY_UNCOMPLETED_FORM_RESPONSES_SLUG)
-  async findMyUncompleted(@User() { id: userId }: UserWithoutPassword): Promise<FindMyUncompletedFormResponsesResult> {
+  async findMyUncompletedActive(
+    @User() { id: userId }: UserWithoutPassword,
+  ): Promise<FindMyUncompletedFormResponsesResult> {
+    // TODO: FILTER BY ACTIVE FORMS
     return await this.formResponsesService.findMyUncompleted({ userId });
   }
 

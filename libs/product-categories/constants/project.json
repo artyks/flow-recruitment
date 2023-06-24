@@ -1,0 +1,26 @@
+{
+  "name": "product-categories-constants",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/product-categories/constants/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/product-categories/constants",
+        "main": "libs/product-categories/constants/src/index.ts",
+        "tsConfig": "libs/product-categories/constants/tsconfig.lib.json",
+        "assets": ["libs/product-categories/constants/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/product-categories/constants/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

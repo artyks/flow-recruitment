@@ -1,0 +1,3 @@
+const ENDPOINT_PRODUCT_CATEGORIES_SLUG = 'product-categories';
+
+export { ENDPOINT_PRODUCT_CATEGORIES_SLUG };
