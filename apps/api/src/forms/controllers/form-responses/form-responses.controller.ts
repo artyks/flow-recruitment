@@ -12,17 +12,30 @@ import {
   FindMyUncompletedFormResponsesResult,
   FindOrCreateMyFormResponseByFormIdResult,
 } from '@flow-recruitment/forms/types';
+import { FormsService } from '../../services/forms/forms.service';
+import { FormResponse } from '@flow-recruitment/prisma';
 
 @Controller(ENDPOINT_FORM_RESPONSES_SLUG)
 export class FormResponsesController {
-  constructor(private readonly formResponsesService: FormResponsesService) {}
+  constructor(
+    private readonly formResponsesService: FormResponsesService,
+    private readonly formsService: FormsService,
+  ) {}
 
   @Get(FIND_MY_UNCOMPLETED_FORM_RESPONSES_SLUG)
   async findMyUncompletedActive(
     @User() { id: userId }: UserWithoutPassword,
   ): Promise<FindMyUncompletedFormResponsesResult> {
-    // TODO: FILTER BY ACTIVE FORMS
-    return await this.formResponsesService.findMyUncompleted({ userId });
+    const allUncompletedResponses = await this.formResponsesService.findMyUncompleted({ userId });
+    if (allUncompletedResponses.length === 0) {
+      return [];
+    }
+    const activeForms = await this.formsService.findAllActive();
+    const isResponseActive = (someResponse: FormResponse) => {
+      return Boolean(activeForms.find((someActiveForm) => someActiveForm.id === someResponse.formId));
+    };
+    const activeUncompletedResponses = allUncompletedResponses.filter((someResponse) => isResponseActive(someResponse));
+    return activeUncompletedResponses;
   }
 
   @Post(FIND_OR_CREATE_MY_FORM_RESPONSE_SLUG)

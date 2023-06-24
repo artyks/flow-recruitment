@@ -17,6 +17,12 @@ export class FormsService {
     });
   }
 
+  async findAllActive() {
+    return await this.prisma.form.findMany({
+      where: { OR: [{ productCategoryPurchase: { isNot: null } }, { productCategorySearch: { isNot: null } }] },
+    });
+  }
+
   async createOne({ questions }: CreateFormDto) {
     /**
      * Eagerly generate form id to use it later with questions
