@@ -5,20 +5,20 @@
     <base-input-text
       v-if="question.inputType === InputTypeEnum.TEXT"
       :initial-value="findAnswerValue(question.id, InputTypeEnum.TEXT)"
-      @update:value="(value) => handleUpdateAnswerValue(value)"
+      @update:value="(value) => handleUpdateAnswerValueDebounced(value)"
     />
 
     <base-input-multiple-choice
       v-else-if="question.inputType === InputTypeEnum.MULTIPLE_CHOICE && question.choiceOptions.length"
       :initial-value="findAnswerValue(question.id, InputTypeEnum.MULTIPLE_CHOICE)"
-      @update:value="(value) => handleUpdateAnswerValue(value)"
+      @update:value="(value) => handleUpdateAnswerValueDebounced(value)"
       :options="question.choiceOptions"
     />
 
     <base-input-single-choice
       v-else-if="question.inputType === InputTypeEnum.SINGLE_CHOICE && question.choiceOptions.length"
       :initial-value="findAnswerValue(question.id, InputTypeEnum.SINGLE_CHOICE)"
-      @update:value="(value) => handleUpdateAnswerValue(value)"
+      @update:value="(value) => handleUpdateAnswerValueDebounced(value)"
       :options="question.choiceOptions"
     />
 
@@ -34,7 +34,7 @@ import { exhaustiveCheck } from '@flow-recruitment/common/utilities';
 import BaseInputMultipleChoice from '../../common/components/BaseInputMultipleChoice.vue';
 import BaseInputSingleChoice from '../../common/components/BaseInputSingleChoice.vue';
 import BaseInputText from '../../common/components/BaseInputText.vue';
-import { isEqual, sortBy } from 'lodash';
+import { isEqual, sortBy, debounce } from 'lodash';
 
 type Question = FindOneFormResult['questions'][0];
 type Answer = FindOrCreateMyFormResponseByFormIdResult['answers'][0];
@@ -112,6 +112,8 @@ export default defineComponent({
       emit('update:answer', answerId.value, newValue);
     };
 
+    const handleUpdateAnswerValueDebounced = debounce(handleUpdateAnswerValue, 300);
+
     const findAnswerValue = <TInputType extends InputTypeEnum>(
       questionId: string,
       formType: TInputType,
@@ -137,9 +139,9 @@ export default defineComponent({
 
     return {
       findAnswerValue,
-      handleUpdateAnswerValue,
       InputTypeEnum,
       canShowQuestion,
+      handleUpdateAnswerValueDebounced,
     };
   },
 });

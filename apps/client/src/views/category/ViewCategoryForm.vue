@@ -26,6 +26,8 @@ import { FindOneFormResult, FindOrCreateMyFormResponseByFormIdResult } from '@fl
 import { FormQuestionInputTypeEnum as InputTypeEnum } from '@flow-recruitment/forms/constants';
 import { handleError } from '../../common/utility/error-handler.utility';
 import ViewCategoryFormQuestion from './ViewCategoryFormQuestion.vue';
+import { updateAnswerValue } from './api/update-answer-value.api';
+import { UpdateFormResponseAnswerValueDto } from '@flow-recruitment/forms/dtos';
 
 type State = {
   form: FindOneFormResult | null;
@@ -69,16 +71,18 @@ export default defineComponent({
       }
     };
 
-    const handleUpdateAnswerValue = (answerId: string, newValue: string | string[]) => {
+    const handleUpdateAnswerValue = async (answerId: string, newValue: string | string[]) => {
       if (!state.answers) {
         return;
       }
+
+      const isArray = Array.isArray(newValue);
 
       const updatedAnswers = state.answers.map((someAnswer) => {
         if (someAnswer.id !== answerId) {
           return someAnswer;
         }
-        if (Array.isArray(newValue)) {
+        if (isArray) {
           return {
             ...someAnswer,
             valueArrayString: newValue,
@@ -92,6 +96,23 @@ export default defineComponent({
       });
 
       state.answers = updatedAnswers;
+
+      let newValueArrayString, newValueString;
+      if (isArray) {
+        newValueArrayString = newValue;
+      } else {
+        newValueString = newValue;
+      }
+
+      await tryUpdateAnswerValue(answerId, { newValueArrayString, newValueString });
+    };
+
+    const tryUpdateAnswerValue = async (answerId: string, paylaod: UpdateFormResponseAnswerValueDto) => {
+      try {
+        await updateAnswerValue(answerId, paylaod);
+      } catch (error) {
+        handleError(error);
+      }
     };
 
     return {
