@@ -45,6 +45,7 @@ model FormQuestion {
   formId          String
   title           String
   inputType       String
+  choiceOptions   String[]                     @default([])
   answers         FormResponseAnswer[]
   visibilityRules FormQuestionVisibilityRule[] @relation("Question")
   dependentRules  FormQuestionVisibilityRule[] @relation("DependOnQuestion")
