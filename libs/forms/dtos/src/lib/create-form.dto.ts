@@ -4,9 +4,10 @@ import {
   IsArray,
   IsEnum,
   IsNotEmpty,
-  IsOptional,
   IsString,
   IsUUID,
+  NotEquals,
+  ValidateIf,
   ValidateNested,
 } from 'class-validator';
 
@@ -14,9 +15,17 @@ class CreateFormQuestionVisibilityRule {
   @IsUUID()
   dependOnAnchor: string;
 
-  @IsString()
+  @NotEquals(null)
   @IsNotEmpty()
-  requiredValue: string;
+  @IsString()
+  @ValidateIf((_, value) => value !== undefined)
+  requiredValueString?: string;
+
+  @NotEquals(null)
+  @IsArray()
+  @IsString({ each: true })
+  @ValidateIf((_, value) => value !== undefined)
+  requiredValueArrayString?: string[];
 }
 
 class CreateFormQuestionDto {
@@ -27,18 +36,21 @@ class CreateFormQuestionDto {
   @IsEnum(FormQuestionInputTypeEnum)
   inputType: FormQuestionInputTypeEnum;
 
-  @IsOptional()
+  @NotEquals(null)
   @IsArray()
   @IsString({ each: true })
+  @ValidateIf((_, value) => value !== undefined)
   choiceOptions?: string[];
 
-  @IsOptional()
+  @NotEquals(null)
   @IsUUID()
+  @ValidateIf((_, value) => value !== undefined)
   anchor?: string;
 
-  @IsOptional()
+  @NotEquals(null)
   @IsArray()
   @ValidateNested({ each: true })
+  @ValidateIf((_, value) => value !== undefined)
   visibilityRules?: CreateFormQuestionVisibilityRule[];
 }
 

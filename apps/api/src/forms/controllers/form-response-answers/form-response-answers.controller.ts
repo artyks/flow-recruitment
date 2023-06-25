@@ -10,9 +10,9 @@ export class FormResponseAnswersController {
   @Patch(':id')
   async updateValue(
     @Param() { id }: UpdateFormResponseAnswerValueParams,
-    @Body() { newValue }: UpdateFormResponseAnswerValueDto,
+    @Body() { newValueArrayString, newValueString }: UpdateFormResponseAnswerValueDto,
   ) {
     // TODO: add user validation; so that user couldn't update other users' answers
-    return await this.answersService.updateValue({ id, newValue });
+    return await this.answersService.updateValue({ id, newValueArrayString, newValueString });
   }
 }

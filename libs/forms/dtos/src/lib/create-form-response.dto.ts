@@ -1,4 +1,4 @@
-import { IsArray, IsOptional, IsUUID, ValidateNested } from 'class-validator';
+import { IsUUID } from 'class-validator';
 
 class CreateFormResponseAnswerDto {
   @IsUUID()
@@ -8,11 +8,6 @@ class CreateFormResponseAnswerDto {
 class CreateFormResponseDto {
   @IsUUID()
   formId: string;
-
-  @IsOptional()
-  @IsArray()
-  @ValidateNested({ each: true })
-  answers?: CreateFormResponseAnswerDto[];
 }
 
 export { CreateFormResponseDto, CreateFormResponseAnswerDto };

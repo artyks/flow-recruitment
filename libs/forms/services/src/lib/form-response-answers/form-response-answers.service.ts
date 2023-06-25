@@ -35,7 +35,10 @@ export class FormResponseAnswersService implements PrismaTransactionExtandable {
     });
   }
 
-  async updateValue({ id, newValue }: UpdateFormResponseAnswerValuePayload) {
-    return await this.prisma.formResponseAnswer.update({ where: { id }, data: { value: newValue || null } });
+  async updateValue({ id, newValueArrayString, newValueString }: UpdateFormResponseAnswerValuePayload) {
+    return await this.prisma.formResponseAnswer.update({
+      where: { id },
+      data: { valueString: newValueString, valueArrayString: newValueArrayString },
+    });
   }
 }

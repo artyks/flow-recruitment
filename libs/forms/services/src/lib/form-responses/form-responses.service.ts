@@ -1,10 +1,15 @@
-import { CreateFormResponseDto, FindOrCreateMyFormResponseByFormIdDto } from '@flow-recruitment/forms/dtos';
+import {
+  CreateFormResponseAnswerDto,
+  CreateFormResponseDto,
+  FindOrCreateMyFormResponseByFormIdDto,
+} from '@flow-recruitment/forms/dtos';
 import { PrismaClientService } from '@flow-recruitment/prisma/client';
 import { Injectable } from '@nestjs/common';
 import { FormResponseAnswersService } from '../form-response-answers/form-response-answers.service';
 import { WithUserId } from '@flow-recruitment/common/types';
 import { callWithInjectedPrismaTransaction } from '@flow-recruitment/prisma/utilities';
 import * as crypto from 'crypto';
+import { FormQuestionsService } from '../form-questions';
 
 type CreateFormResponsePayload = CreateFormResponseDto & WithUserId;
 type FindMyFormResponsePayload = FindOrCreateMyFormResponseByFormIdDto & WithUserId;
@@ -15,6 +20,7 @@ export class FormResponsesService {
   constructor(
     private readonly prisma: PrismaClientService,
     private readonly responseAnswersService: FormResponseAnswersService,
+    private readonly formQuestionsService: FormQuestionsService,
   ) {}
 
   async findMyByFormId({ userId, formId }: FindMyFormResponsePayload) {
@@ -25,7 +31,7 @@ export class FormResponsesService {
     return await this.prisma.formResponse.findMany({ where: { userId, isCompleted: false }, include: { form: true } });
   }
 
-  async createOne({ answers, formId, userId }: CreateFormResponsePayload) {
+  async createOne({ formId, userId }: CreateFormResponsePayload) {
     /**
      * Eagerly generate response id to use it later with answers
      */
@@ -44,16 +50,19 @@ export class FormResponsesService {
       });
 
       /**
+       * Prepare answer skeleton dtos
+       */
+      const answerDtos = await this.scaffoldAnswerSkeletons(formId);
+
+      /**
        * Create response's answers
        */
-      if (answers) {
-        await callWithInjectedPrismaTransaction({
-          tx,
-          service: this.responseAnswersService,
-          method: 'createMany',
-          args: [{ formResponseId, answerDtos: answers }],
-        });
-      }
+      await callWithInjectedPrismaTransaction({
+        tx,
+        service: this.responseAnswersService,
+        method: 'createMany',
+        args: [{ formResponseId, answerDtos }],
+      });
 
       /**
        * Retrieve and return created response filled with answers
@@ -62,6 +71,15 @@ export class FormResponsesService {
         where: { id: formResponseId },
         include: { answers: true },
       });
+    });
+  }
+
+  private async scaffoldAnswerSkeletons(formId: string): Promise<CreateFormResponseAnswerDto[]> {
+    const questions = await this.formQuestionsService.findManyByFormId(formId);
+    return questions.map((someQuestion) => {
+      return {
+        questionId: someQuestion.id,
+      };
     });
   }
 }

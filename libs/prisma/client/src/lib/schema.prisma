@@ -55,14 +55,15 @@ model FormQuestion {
 }
 
 model FormQuestionVisibilityRule {
-  id                 String       @id @default(uuid())
-  question           FormQuestion @relation("Question", fields: [questionId], references: [id])
-  questionId         String
-  dependOnQuestion   FormQuestion @relation("DependOnQuestion", fields: [dependOnQuestionId], references: [id])
-  dependOnQuestionId String
-  requiredValue      String
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
+  id                       String       @id @default(uuid())
+  question                 FormQuestion @relation("Question", fields: [questionId], references: [id])
+  questionId               String
+  dependOnQuestion         FormQuestion @relation("DependOnQuestion", fields: [dependOnQuestionId], references: [id])
+  dependOnQuestionId       String
+  requiredValueString      String?
+  requiredValueArrayString String[]
+  createdAt                DateTime     @default(now())
+  updatedAt                DateTime     @updatedAt
 }
 
 model FormResponse {
@@ -78,12 +79,13 @@ model FormResponse {
 }
 
 model FormResponseAnswer {
-  id         String       @id @default(uuid())
-  question   FormQuestion @relation(fields: [questionId], references: [id])
-  questionId String
-  response   FormResponse @relation(fields: [responseId], references: [id])
-  responseId String
-  value      String?
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  id               String       @id @default(uuid())
+  question         FormQuestion @relation(fields: [questionId], references: [id])
+  questionId       String
+  response         FormResponse @relation(fields: [responseId], references: [id])
+  responseId       String
+  valueString      String?
+  valueArrayString String[]
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
 }

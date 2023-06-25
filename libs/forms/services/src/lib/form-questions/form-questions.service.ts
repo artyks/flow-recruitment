@@ -28,6 +28,10 @@ export class FormQuestionsService implements PrismaTransactionExtandable {
     return this;
   }
 
+  async findManyByFormId(formId: string) {
+    return await this.prisma.formQuestion.findMany({ where: { formId } });
+  }
+
   async createMany({ formId, questions }: CreateManyFormQuestionsPayload) {
     return await this.prisma.$transaction(async (tx) => {
       const visibilityRulePayloads: Omit<CreateManyFormQuestionVisibilityRulesPayload, 'anchorsMap'>[] = [];
@@ -63,7 +67,7 @@ export class FormQuestionsService implements PrismaTransactionExtandable {
             form: { connect: { id: formId } },
             inputType: question.inputType,
             title: question.title,
-            choiceOptions: question.choiceOptions,
+            choiceOptions: question.choiceOptions || [],
           },
         });
       });

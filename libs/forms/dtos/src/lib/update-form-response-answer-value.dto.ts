@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsArray, IsString, IsUUID, NotEquals, ValidateIf } from 'class-validator';
 
 class UpdateFormResponseAnswerValueParams {
   @IsUUID()
@@ -6,9 +6,16 @@ class UpdateFormResponseAnswerValueParams {
 }
 
 class UpdateFormResponseAnswerValueDto {
-  @IsOptional()
+  @NotEquals(null)
   @IsString()
-  newValue?: string | null; /** JSON string or null */
+  @ValidateIf((_, value) => value !== undefined)
+  newValueString?: string; /** e.g. single choice or text value */
+
+  @NotEquals(null)
+  @IsString({ each: true })
+  @IsArray()
+  @ValidateIf((_, value) => value !== undefined)
+  newValueArrayString?: string[]; /** e.g. multiple choice value */
 }
 
 export { UpdateFormResponseAnswerValueDto, UpdateFormResponseAnswerValueParams };

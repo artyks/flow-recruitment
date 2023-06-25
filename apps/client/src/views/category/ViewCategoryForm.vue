@@ -1,32 +1,15 @@
 <template>
-  <div v-if="form" class="form-container">
+  <div v-if="form && answers" class="form-container">
     <h1>{{ `Form ${form.id}` }}</h1>
 
     <div class="questions-container">
-      <!-- eslint-disable-next-line vue/no-v-for-template-key -->
-      <template v-for="question in form.questions" :key="question.id">
-        <div class="question">
-          <h2>{{ question.title }}</h2>
-          <input
-            v-if="question.inputType === FormQuestionInputTypeEnum.TEXT"
-            type="text"
-            :value="findAnswerValue(question.id)"
-          />
-          <input
-            v-else-if="question.inputType === FormQuestionInputTypeEnum.MULTIPLE_CHOICE"
-            type="text"
-            :value="findAnswerValue(question.id)"
-          />
-          <input
-            v-else-if="question.inputType === FormQuestionInputTypeEnum.SINGLE_CHOICE"
-            type="text"
-            :value="findAnswerValue(question.id)"
-          />
-          <div v-else type="text" :value="findAnswerValue(question.id)">
-            !!! PLEASE CHECK FORM CONFIG -- WRONT INPUT TYPE !!!
-          </div>
-        </div>
-      </template>
+      <view-category-form-question
+        v-for="question in form.questions"
+        :key="question.id"
+        :question="question"
+        :answers="answers"
+        @update:answer="handleUpdateAnswerValue"
+      />
     </div>
   </div>
 
@@ -40,30 +23,28 @@ import { findFormById } from './api/find-form-by-id.api';
 import { findOrCreateMyFormResponse } from './api/find-or-create-my-form-response.api';
 import { ROUTE_HOME_NAME } from '../../common/router/router.constants';
 import { FindOneFormResult, FindOrCreateMyFormResponseByFormIdResult } from '@flow-recruitment/forms/types';
-import { FormQuestionInputTypeEnum } from '@flow-recruitment/forms/constants';
+import { FormQuestionInputTypeEnum as InputTypeEnum } from '@flow-recruitment/forms/constants';
+import { handleError } from '../../common/utility/error-handler.utility';
+import ViewCategoryFormQuestion from './ViewCategoryFormQuestion.vue';
 
 type State = {
   form: FindOneFormResult | null;
-  formResponse: FindOrCreateMyFormResponseByFormIdResult | null;
+  answers: Answer[] | null;
+  isCompleted: boolean;
 };
 
+type Answer = FindOrCreateMyFormResponseByFormIdResult['answers'][0];
+
 export default defineComponent({
+  components: {
+    ViewCategoryFormQuestion,
+  },
   setup() {
     const state = reactive<State>({
       form: null,
-      formResponse: null,
+      answers: null,
+      isCompleted: false,
     });
-
-    const findAnswerValue = (questionId: string) => {
-      if (!state.formResponse) {
-        return null;
-      }
-      const answer = state.formResponse.answers.find((someAnswer) => someAnswer.questionId === questionId);
-      if (!answer) {
-        return null;
-      }
-      return answer.value;
-    };
 
     const router = useRouter();
     const route = useRoute();
@@ -73,20 +54,50 @@ export default defineComponent({
     });
 
     const initData = async () => {
-      if (!('formId' in route.params) || typeof route.params.formId !== 'string') {
-        return router.push({ name: ROUTE_HOME_NAME });
+      try {
+        if (!('formId' in route.params) || typeof route.params.formId !== 'string') {
+          return router.push({ name: ROUTE_HOME_NAME });
+        }
+        const formPromise = findFormById(route.params.formId);
+        const formResponsePromise = findOrCreateMyFormResponse(route.params.formId);
+        const [form, formResponse] = await Promise.all([formPromise, formResponsePromise]);
+        state.form = form;
+        state.answers = formResponse.answers;
+        state.isCompleted = formResponse.isCompleted;
+      } catch (error) {
+        handleError(error);
       }
-      const formPromise = findFormById(route.params.formId);
-      const formResponsePromise = findOrCreateMyFormResponse(route.params.formId);
-      const [form, formResponse] = await Promise.all([formPromise, formResponsePromise]);
-      state.form = form;
-      state.formResponse = formResponse;
+    };
+
+    const handleUpdateAnswerValue = (answerId: string, newValue: string | string[]) => {
+      if (!state.answers) {
+        return;
+      }
+
+      const updatedAnswers = state.answers.map((someAnswer) => {
+        if (someAnswer.id !== answerId) {
+          return someAnswer;
+        }
+        if (Array.isArray(newValue)) {
+          return {
+            ...someAnswer,
+            valueArrayString: newValue,
+          };
+        } else {
+          return {
+            ...someAnswer,
+            valueString: newValue,
+          };
+        }
+      });
+
+      state.answers = updatedAnswers;
     };
 
     return {
       ...toRefs(state),
-      findAnswerValue,
-      FormQuestionInputTypeEnum,
+      handleUpdateAnswerValue,
+      InputTypeEnum,
     };
   },
 });
@@ -95,6 +106,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .form-container {
   width: 100%;
+  margin-bottom: 100px;
   display: flex;
   flex-flow: column;
   row-gap: 50px;
@@ -103,14 +115,14 @@ export default defineComponent({
     width: 100%;
     display: flex;
     flex-flow: column;
-    row-gap: 35px;
+    row-gap: 60px;
 
     .question {
       width: 100%;
       display: flex;
       flex-flow: column;
       align-items: center;
-      row-gap: 20px;
+      row-gap: 25px;
     }
   }
 }

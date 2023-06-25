@@ -13,12 +13,18 @@ const CarDealSearchConfig: FormConfig = {
     { inputType: FormQuestionInputTypeEnum.TEXT, title: 'What is the production year of your vehicle?' },
     { inputType: FormQuestionInputTypeEnum.TEXT, title: 'What is the brand of your vehicle?' },
     {
-      inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE,
+      inputType: FormQuestionInputTypeEnum.MULTIPLE_CHOICE,
       title: 'What type of fuel does your vehicle use?',
       choiceOptions: ['Diesel', 'Petrol', 'Electric', 'Hybrid'],
+      anchor: 'fuel-type',
     },
     {
-      inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE,
+      inputType: FormQuestionInputTypeEnum.TEXT,
+      title: "[1] Hooray! It's a question with conditonal visibility rule based on Diesel and Petrol :)",
+      visibilityRules: [{ dependOnAnchor: 'fuel-type', requiredValueArrayString: ['Diesel', 'Petrol'] }],
+    },
+    {
+      inputType: FormQuestionInputTypeEnum.TEXT,
       title: 'What is the engine cap of your vehicle?',
     },
     {
@@ -39,8 +45,8 @@ const CarDealSearchConfig: FormConfig = {
     },
     {
       inputType: FormQuestionInputTypeEnum.TEXT,
-      title: "Hooray! It's a question with conditonal visibility rule :)",
-      visibilityRules: [{ dependOnAnchor: 'is-leased', requiredValue: 'Yes' }],
+      title: "[2] Hooray! It's a question with conditonal visibility rule :)",
+      visibilityRules: [{ dependOnAnchor: 'is-leased', requiredValueString: 'Yes' }],
     },
     {
       inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE,

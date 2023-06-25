@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, toRefs } from 'vue';
+import { defineComponent, onMounted, reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { ROUTE_CATEGORY_FORM_NAME } from '../../common/router/router.constants';
 import { FindMyUncompletedFormResponsesResult } from '@flow-recruitment/forms/types';
