@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@flow-recruitment/common/decorators": ["libs/common/decorators/src/index.ts"],
+      "@flow-recruitment/common/middlewares": ["libs/common/middlewares/src/index.ts"],
       "@flow-recruitment/common/types": ["libs/common/types/src/index.ts"],
       "@flow-recruitment/forms/constants": ["libs/forms/constants/src/index.ts"],
       "@flow-recruitment/forms/dtos": ["libs/forms/dtos/src/index.ts"],

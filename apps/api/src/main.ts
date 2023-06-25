@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { Config } from './config/config.interface';
 import { AppModule } from './app.module';
+import { mockUserOnReq } from '@flow-recruitment/common/middlewares';
 
 const bootstrap = async () => {
   /**
@@ -28,6 +29,12 @@ const bootstrap = async () => {
     }),
   );
   app.setGlobalPrefix(GLOBAL_PREFIX);
+
+  /**
+   * Apply mock-user-onto-request middleware
+   * TODO: for showcase only; remove it later
+   */
+  app.use(mockUserOnReq);
 
   /**
    * Initialise NestJs lifecycle events

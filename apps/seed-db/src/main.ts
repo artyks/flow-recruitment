@@ -1,15 +1,18 @@
-import { userFixture } from './seed-fixtures/user-seed.fixture';
 import {
   FormQuestionVisibilityRulesService,
   FormQuestionsService,
   FormsService,
 } from '@flow-recruitment/forms/services';
-import { VehicleInsuranceSearchConfig } from './seed-fixtures/vehicle-insurance-search-form.fixture';
-import { VehicleInsurancePurchaseConfig } from './seed-fixtures/vehicle-insurance-purchase-form.fixture';
-import { CarDealSearchConfig } from './seed-fixtures/car-deal-search-form.fixture';
-import { CarDealPurchaseConfig } from './seed-fixtures/car-deal-purchase-form.fixture';
+
 import { ProductCategoriesService } from '@flow-recruitment/product-categories/services';
-import { callWithInjectedPrismaTransaction } from '@flow-recruitment/prisma/utilities';
+import {
+  CarDealPurchaseConfig,
+  CarDealSearchConfig,
+  VehicleInsurancePurchaseConfig,
+  VehicleInsuranceSearchConfig,
+  callWithInjectedPrismaTransaction,
+  userFixture,
+} from '@flow-recruitment/prisma/utilities';
 import { PrismaClientService } from '@flow-recruitment/prisma/client';
 import { Logger } from '@nestjs/common';
 
