@@ -28,6 +28,11 @@ class CreateFormQuestionDto {
   inputType: FormQuestionInputTypeEnum;
 
   @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  choiceOptions?: string[];
+
+  @IsOptional()
   @IsUUID()
   anchor?: string;
 

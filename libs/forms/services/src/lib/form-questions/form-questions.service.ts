@@ -63,6 +63,7 @@ export class FormQuestionsService implements PrismaTransactionExtandable {
             form: { connect: { id: formId } },
             inputType: question.inputType,
             title: question.title,
+            choiceOptions: question.choiceOptions,
           },
         });
       });
