@@ -112,7 +112,7 @@ The plan for Day 4 is the following:
 #### Results:
 
 - [ ] add choice options to question schema [fix - author forgot about them]
-- [ ] inject default user onto request
+- [x] inject default user onto request
 - [ ] configure frontend app
 - [ ] implement frontend api layer
 - [ ] develop frontend templates (html/css)
