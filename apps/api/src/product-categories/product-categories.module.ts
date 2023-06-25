@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ProductCategoriesService } from './services/product-categories/product-categories.service';
 import { ProductCategoriesController } from './controllers/product-categories/product-categories.controller';
+import { ProductCategoriesService } from '@flow-recruitment/product-categories/services';
 
 @Module({
   providers: [ProductCategoriesService],

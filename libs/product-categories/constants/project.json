@@ -12,7 +12,8 @@
         "main": "libs/product-categories/constants/src/index.ts",
         "tsConfig": "libs/product-categories/constants/tsconfig.lib.json",
         "assets": ["libs/product-categories/constants/*.md"]
-      }
+      },
+      "dependsOn": ["^build"]
     },
     "lint": {
       "executor": "@nx/linter:eslint",

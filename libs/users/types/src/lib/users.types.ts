@@ -1,4 +1,4 @@
-import { User } from '@flow-recruitment/prisma';
+import { User } from '@flow-recruitment/prisma/client';
 
 type UserWithoutPassword = Omit<User, 'password'>;
 

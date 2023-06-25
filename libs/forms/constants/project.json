@@ -12,7 +12,8 @@
         "main": "libs/forms/constants/src/index.ts",
         "tsConfig": "libs/forms/constants/tsconfig.lib.json",
         "assets": ["libs/forms/constants/*.md"]
-      }
+      },
+      "dependsOn": ["^build"]
     },
     "lint": {
       "executor": "@nx/linter:eslint",

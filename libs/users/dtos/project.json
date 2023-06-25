@@ -4,6 +4,17 @@
   "sourceRoot": "libs/users/dtos/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/users/dtos",
+        "main": "libs/users/dtos/src/index.ts",
+        "tsConfig": "libs/users/dtos/tsconfig.lib.json",
+        "assets": ["libs/users/dtos/*.md"]
+      },
+      "dependsOn": ["^build"]
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

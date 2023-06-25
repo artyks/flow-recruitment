@@ -1,0 +1,8 @@
+{
+  "name": "@flow-recruitment/prisma/client",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "prisma": {
+    "seed": "node ../../../dist/apps/seed-db/main.js"
+  }
+}

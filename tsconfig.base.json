@@ -20,11 +20,15 @@
       "@flow-recruitment/common/types": ["libs/common/types/src/index.ts"],
       "@flow-recruitment/forms/constants": ["libs/forms/constants/src/index.ts"],
       "@flow-recruitment/forms/dtos": ["libs/forms/dtos/src/index.ts"],
+      "@flow-recruitment/forms/services": ["libs/forms/services/src/index.ts"],
       "@flow-recruitment/forms/types": ["libs/forms/types/src/index.ts"],
-      "@flow-recruitment/prisma": ["libs/prisma/src/index.ts"],
+      "@flow-recruitment/prisma/client": ["libs/prisma/client/src/index.ts"],
+      "@flow-recruitment/prisma/utilities": ["libs/prisma/utilities/src/index.ts"],
       "@flow-recruitment/product-categories/constants": ["libs/product-categories/constants/src/index.ts"],
       "@flow-recruitment/product-categories/dtos": ["libs/product-categories/dtos/src/index.ts"],
+      "@flow-recruitment/product-categories/services": ["libs/product-categories/services/src/index.ts"],
       "@flow-recruitment/users/dtos": ["libs/users/dtos/src/index.ts"],
+      "@flow-recruitment/users/services": ["libs/users/services/src/index.ts"],
       "@flow-recruitment/users/types": ["libs/users/types/src/index.ts"]
     }
   },

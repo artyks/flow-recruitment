@@ -1,7 +1,7 @@
 import { ENDPOINT_FORM_RESPONSE_ANSWERS_SLUG } from '@flow-recruitment/forms/constants';
 import { Body, Controller, Param, Patch } from '@nestjs/common';
-import { FormResponseAnswersService } from '../../services/form-response-answers/form-response-answers.service';
 import { UpdateFormResponseAnswerValueDto, UpdateFormResponseAnswerValueParams } from '@flow-recruitment/forms/dtos';
+import { FormResponseAnswersService } from '@flow-recruitment/forms/services';
 
 @Controller(ENDPOINT_FORM_RESPONSE_ANSWERS_SLUG)
 export class FormResponseAnswersController {

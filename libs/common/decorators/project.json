@@ -4,6 +4,17 @@
   "sourceRoot": "libs/common/decorators/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/common/decorators",
+        "main": "libs/common/decorators/src/index.ts",
+        "tsConfig": "libs/common/decorators/tsconfig.lib.json",
+        "assets": ["libs/common/decorators/*.md"]
+      },
+      "dependsOn": ["^build"]
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

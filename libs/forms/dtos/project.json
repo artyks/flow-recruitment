@@ -4,6 +4,17 @@
   "sourceRoot": "libs/forms/dtos/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/forms/dtos",
+        "main": "libs/forms/dtos/src/index.ts",
+        "tsConfig": "libs/forms/dtos/tsconfig.lib.json",
+        "assets": ["libs/forms/dtos/*.md"]
+      },
+      "dependsOn": ["^build"]
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

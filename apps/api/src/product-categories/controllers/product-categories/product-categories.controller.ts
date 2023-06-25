@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ProductCategoriesService } from '../../services/product-categories/product-categories.service';
 import { ENDPOINT_PRODUCT_CATEGORIES_SLUG } from '@flow-recruitment/product-categories/constants';
 import { FindProductCategoryParams } from '@flow-recruitment/product-categories/dtos';
+import { ProductCategoriesService } from '@flow-recruitment/product-categories/services';
 
 @Controller(ENDPOINT_PRODUCT_CATEGORIES_SLUG)
 export class ProductCategoriesController {

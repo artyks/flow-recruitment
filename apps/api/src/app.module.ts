@@ -5,7 +5,7 @@ import { loadConfig } from './config/config';
 import { FormsModule } from './forms/forms.module';
 import { ProductCategoriesModule } from './product-categories/product-categories.module';
 import { UsersModule } from './users/users.module';
-import { PrismaModule } from '@flow-recruitment/prisma';
+import { PrismaModule } from '@flow-recruitment/prisma/client';
 
 @Module({
   imports: [

@@ -4,7 +4,6 @@ import {
   FIND_OR_CREATE_MY_FORM_RESPONSE_SLUG,
 } from '@flow-recruitment/forms/constants';
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { FormResponsesService } from '../../services/form-responses/form-responses.service';
 import { FindOrCreateMyFormResponseByFormIdDto } from '@flow-recruitment/forms/dtos';
 import { User } from '@flow-recruitment/common/decorators';
 import { UserWithoutPassword } from '@flow-recruitment/users/types';
@@ -12,8 +11,8 @@ import {
   FindMyUncompletedFormResponsesResult,
   FindOrCreateMyFormResponseByFormIdResult,
 } from '@flow-recruitment/forms/types';
-import { FormsService } from '../../services/forms/forms.service';
-import { FormResponse } from '@flow-recruitment/prisma';
+import { FormResponse } from '@flow-recruitment/prisma/client';
+import { FormResponsesService, FormsService } from '@flow-recruitment/forms/services';
 
 @Controller(ENDPOINT_FORM_RESPONSES_SLUG)
 export class FormResponsesController {
