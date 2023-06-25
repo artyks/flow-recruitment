@@ -1,0 +1,53 @@
+body {
+  min-height: 100vh;
+  color: #16205e;
+  background-color: #e8f4ff;
+}
+
+body b {
+  font-weight: 500;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+p a {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none !important;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 40px;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 24px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 100%;
+  min-width: 120px;
+  max-width: 400px;
+  background-color: rgb(3, 27, 78, 0.8);
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(3, 27, 78, 0.65);
+}

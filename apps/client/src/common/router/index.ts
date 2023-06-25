@@ -21,16 +21,14 @@ const routes: Route[] = [
     component: ViewHome,
   },
   {
+    path: ROUTE_CATEGORY_FORM_PATH,
+    name: ROUTE_CATEGORY_FORM_NAME,
+    component: () => import(/* webpackChunkName: "category-form" */ '../../views/category/ViewCategoryForm.vue'),
+  },
+  {
     path: ROUTE_CATEGORY_LIST_PATH,
     name: ROUTE_CATEGORY_LIST_NAME,
     component: () => import(/* webpackChunkName: "category-list" */ '../../views/category/ViewCategoryList.vue'),
-    children: [
-      {
-        path: ROUTE_CATEGORY_FORM_PATH,
-        name: ROUTE_CATEGORY_FORM_NAME,
-        component: () => import(/* webpackChunkName: "category-form" */ '../../views/category/ViewCategoryForm.vue'),
-      },
-    ],
   },
 ];
 

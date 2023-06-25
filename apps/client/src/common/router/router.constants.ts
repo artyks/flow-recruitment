@@ -1,11 +1,11 @@
 const ROUTE_HOME_NAME = 'HOME';
 const ROUTE_HOME_PATH = '/';
 
-const ROUTE_CATEGORY_LIST_NAME = 'LIST';
+const ROUTE_CATEGORY_LIST_NAME = 'CATEGORY_LIST';
 const ROUTE_CATEGORY_LIST_PATH = '/category/:categoryId';
 
 const ROUTE_CATEGORY_FORM_NAME = 'CATEGORY_FORM';
-const ROUTE_CATEGORY_FORM_PATH = '/:formType/:formId';
+const ROUTE_CATEGORY_FORM_PATH = '/category/:categoryId/:formType/:formId';
 
 export {
   ROUTE_HOME_NAME,

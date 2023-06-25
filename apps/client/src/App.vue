@@ -32,3 +32,4 @@ export default defineComponent({
 </style>
 
 <style lang="scss" src="./common/styles/reset.scss"></style>
+<style lang="scss" src="./common/styles/style.scss"></style>

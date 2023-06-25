@@ -29,6 +29,7 @@ const bootstrap = async () => {
     }),
   );
   app.setGlobalPrefix(GLOBAL_PREFIX);
+  app.enableCors();
 
   /**
    * Apply mock-user-onto-request middleware

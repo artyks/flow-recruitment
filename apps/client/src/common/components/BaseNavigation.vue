@@ -2,7 +2,9 @@
   <nav class="navigation">
     <!-- eslint-disable-next-line vue/no-v-for-template-key -->
     <template v-for="route in routes" :key="route.name">
-      <RouterLink v-if="route.label" :to="{ name: route.name }" class="navigation__link">{{ route.label }}</RouterLink>
+      <router-link v-if="route.label" :to="{ name: route.name }" class="navigation__link">
+        {{ route.label }}
+      </router-link>
     </template>
   </nav>
 </template>
