@@ -15,7 +15,7 @@ export class ProductCategoriesService implements PrismaTransactionExtandable {
   }
 
   async findOne(id: string) {
-    return await this.prisma.productCategory.findUnique({ where: { id } });
+    return await this.prisma.productCategory.findUniqueOrThrow({ where: { id } });
   }
 
   async findMany() {

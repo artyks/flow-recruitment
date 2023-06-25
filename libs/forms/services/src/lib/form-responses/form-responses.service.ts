@@ -22,7 +22,7 @@ export class FormResponsesService {
   }
 
   async findMyUncompleted({ userId }: FindMyUncompletedFormResponsesPayload) {
-    return await this.prisma.formResponse.findMany({ where: { userId, isCompleted: false } });
+    return await this.prisma.formResponse.findMany({ where: { userId, isCompleted: false }, include: { form: true } });
   }
 
   async createOne({ answers, formId, userId }: CreateFormResponsePayload) {

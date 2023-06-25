@@ -4,4 +4,9 @@ enum FormQuestionInputTypeEnum {
   MULTIPLE_CHOICE = 'multiple-choice',
 }
 
-export { FormQuestionInputTypeEnum };
+enum FormType {
+  SEARCH = 'search',
+  PURCHASE = 'purchase',
+}
+
+export { FormQuestionInputTypeEnum, FormType };

@@ -28,6 +28,7 @@
       "@flow-recruitment/product-categories/constants": ["libs/product-categories/constants/src/index.ts"],
       "@flow-recruitment/product-categories/dtos": ["libs/product-categories/dtos/src/index.ts"],
       "@flow-recruitment/product-categories/services": ["libs/product-categories/services/src/index.ts"],
+      "@flow-recruitment/product-categories/types": ["libs/product-categories/types/src/index.ts"],
       "@flow-recruitment/users/dtos": ["libs/users/dtos/src/index.ts"],
       "@flow-recruitment/users/services": ["libs/users/services/src/index.ts"],
       "@flow-recruitment/users/types": ["libs/users/types/src/index.ts"]

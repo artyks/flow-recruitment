@@ -1,0 +1,27 @@
+{
+  "name": "product-categories-types",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/product-categories/types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/product-categories/types",
+        "main": "libs/product-categories/types/src/index.ts",
+        "tsConfig": "libs/product-categories/types/tsconfig.lib.json",
+        "assets": ["libs/product-categories/types/*.md"]
+      },
+      "dependsOn": ["^build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/product-categories/types/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,4 +1,4 @@
-import { FormQuestionInputTypeEnum } from '@flow-recruitment/forms/constants';
+import { FormQuestionInputTypeEnum, FormType } from '@flow-recruitment/forms/constants';
 import {
   ArrayNotEmpty,
   IsArray,
@@ -47,6 +47,9 @@ class CreateFormDto {
   @ArrayNotEmpty()
   @ValidateNested({ each: true })
   questions: CreateFormQuestionDto[];
+
+  @IsEnum(FormType)
+  type: FormType;
 }
 
 export { CreateFormDto, CreateFormQuestionVisibilityRule, CreateFormQuestionDto };

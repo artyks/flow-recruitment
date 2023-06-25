@@ -50,7 +50,7 @@ const seedDb = async () => {
         tx,
         service: formsService,
         method: 'createOne',
-        args: [{ questions: VehicleInsuranceSearchConfig }],
+        args: [VehicleInsuranceSearchConfig],
       });
 
       /**
@@ -60,7 +60,7 @@ const seedDb = async () => {
         tx,
         service: formsService,
         method: 'createOne',
-        args: [{ questions: VehicleInsurancePurchaseConfig }],
+        args: [VehicleInsurancePurchaseConfig],
       });
 
       /**
@@ -70,7 +70,7 @@ const seedDb = async () => {
         tx,
         service: formsService,
         method: 'createOne',
-        args: [{ questions: CarDealSearchConfig }],
+        args: [CarDealSearchConfig],
       });
 
       /**
@@ -80,7 +80,7 @@ const seedDb = async () => {
         tx,
         service: formsService,
         method: 'createOne',
-        args: [{ questions: CarDealPurchaseConfig }],
+        args: [CarDealPurchaseConfig],
       });
 
       const [vehicleInsuranceSearchForm, vehicleInsurancePurchaseForm, carDealSearchForm, carDealPurchaseForm] =

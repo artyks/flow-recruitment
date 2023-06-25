@@ -32,7 +32,7 @@ export class FormsService implements PrismaTransactionExtandable {
     });
   }
 
-  async createOne({ questions }: CreateFormDto) {
+  async createOne({ questions, type }: CreateFormDto) {
     /**
      * Eagerly generate form id to use it later with questions
      */
@@ -42,7 +42,7 @@ export class FormsService implements PrismaTransactionExtandable {
       /**
        * Create form
        */
-      await tx.form.create({ data: { id: formId } });
+      await tx.form.create({ data: { id: formId, type } });
 
       /**
        * Create form's questions
