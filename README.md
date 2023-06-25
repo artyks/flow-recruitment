@@ -92,7 +92,7 @@ The plan for Day 3 is the following:
 - [ ] configure frontend app
 - [ ] implement frontend as much as possible :(
 
-  This time was less lucky, author had an issue with prisma transactions, they didn't want to work with SQLite due to the connection amount limit (just 1). PostgreSQL doesn't allow uncommited reads (those are needed for Prisma's interactive transactions). Thus author moved to MySQL. What's more, there was a hidden bug with prisma transaction client injection (needed for transaction to work among different services) -- transaction injection helper used 'prismaService' property, while author used 'prisma' property in services, which had caused transactions to fail. To avoid this in the future, would be better to create class to extend from, smth like 'ServiceWithExtendedTransaction' (but author has no time for that).
+  This time was less lucky, author had an issue with prisma transactions, they didn't want to work with SQLite due to the connection amount limit (just 1). Thus author moved to Postgres. What's more, there was a hidden bug with prisma transaction client injection (needed for transaction to work among different services) -- transaction injection helper used 'prismaService' property, while author used 'prisma' property in services, which had caused transactions to fail. To avoid this in the future, would be better to create class to extend from, smth like 'ServiceWithExtendedTransaction' (but author has no time for that).
 
   Another issue was with seeding prisma, which required moving services to libs. As Nx authors recommend, 80% of code goes to libs, and 20% to apps. Though a git history was a bit lost, glad it's not a big problem this time :)
 
