@@ -37,49 +37,38 @@ export class FormResponsesService {
      */
     const formResponseId = crypto.randomUUID();
 
-    return await this.prisma.$transaction(async (tx) => {
-      /**
-       * Create response
-       */
-      await tx.formResponse.create({
-        data: {
-          id: formResponseId,
-          form: { connect: { id: formId } },
-          user: { connect: { id: userId } },
-        },
-      });
-
-      /**
-       * Prepare answer skeleton dtos
-       */
-      const answerDtos = await this.scaffoldAnswerSkeletons(formId);
-
-      /**
-       * Create response's answers
-       */
-      await callWithInjectedPrismaTransaction({
-        tx,
-        service: this.responseAnswersService,
-        method: 'createMany',
-        args: [{ formResponseId, answerDtos }],
-      });
-
-      /**
-       * Retrieve and return created response filled with answers
-       */
-      return await tx.formResponse.findUniqueOrThrow({
-        where: { id: formResponseId },
-        include: { answers: true },
-      });
-    });
-  }
-
-  private async scaffoldAnswerSkeletons(formId: string): Promise<CreateFormResponseAnswerDto[]> {
+    /**
+     * Prepare answer skeleton dtos
+     */
     const questions = await this.formQuestionsService.findManyByFormId(formId);
-    return questions.map((someQuestion) => {
+    const answerDtos: CreateFormResponseAnswerDto[] = questions.map((someQuestion) => {
       return {
         questionId: someQuestion.id,
       };
+    });
+
+    /**
+     * Create response
+     */
+    await this.prisma.formResponse.create({
+      data: {
+        id: formResponseId,
+        form: { connect: { id: formId } },
+        user: { connect: { id: userId } },
+      },
+    });
+
+    /**
+     * Create response's answers
+     */
+    this.responseAnswersService.createMany({ formResponseId, answerDtos });
+
+    /**
+     * Retrieve and return created response filled with answers
+     */
+    return await this.prisma.formResponse.findUniqueOrThrow({
+      where: { id: formResponseId },
+      include: { answers: true },
     });
   }
 }

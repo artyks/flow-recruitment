@@ -78,7 +78,9 @@ export default defineComponent({
          * Lookup for categoryId by formId
          */
         if (!categoryId) {
-          const productCategory = state.productCategories.find((someCategory) => someCategory.formSearchId === formId);
+          const productCategory = state.productCategories.find((someCategory) => {
+            return someCategory.formSearchId === formId || someCategory.formPurchaseId === formId;
+          });
           if (!productCategory) {
             throw new Error("Category doesn't exist");
           }
@@ -122,6 +124,14 @@ export default defineComponent({
       display: flex;
       justify-content: center;
       column-gap: 50px;
+
+      button {
+        padding: 10px;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 }

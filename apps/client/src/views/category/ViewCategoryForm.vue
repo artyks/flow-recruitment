@@ -11,6 +11,8 @@
         @update:answer="handleUpdateAnswerValue"
       />
     </div>
+
+    <button @click="handleComplete" class="complete-button">Complete form</button>
   </div>
 
   <div v-else class="loading-message">Loading form... please wait :)</div>
@@ -21,7 +23,7 @@ import { defineComponent, onMounted, reactive, toRefs } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { findFormById } from './api/find-form-by-id.api';
 import { findOrCreateMyFormResponse } from './api/find-or-create-my-form-response.api';
-import { ROUTE_HOME_NAME } from '../../common/router/router.constants';
+import { ROUTE_CATEGORY_LIST_NAME } from '../../common/router/router.constants';
 import { FindOneFormResult, FindOrCreateMyFormResponseByFormIdResult } from '@flow-recruitment/forms/types';
 import { FormQuestionInputTypeEnum as InputTypeEnum } from '@flow-recruitment/forms/constants';
 import { handleError } from '../../common/utility/error-handler.utility';
@@ -57,8 +59,8 @@ export default defineComponent({
 
     const initData = async () => {
       try {
-        if (!('formId' in route.params) || typeof route.params.formId !== 'string') {
-          return router.push({ name: ROUTE_HOME_NAME });
+        if (typeof route.params.formId !== 'string') {
+          throw new Error('Check route.params.formId');
         }
         const formPromise = findFormById(route.params.formId);
         const formResponsePromise = findOrCreateMyFormResponse(route.params.formId);
@@ -66,6 +68,15 @@ export default defineComponent({
         state.form = form;
         state.answers = formResponse.answers;
         state.isCompleted = formResponse.isCompleted;
+      } catch (error) {
+        handleError(error);
+      }
+    };
+
+    const handleComplete = async () => {
+      try {
+        // TODO: validate form (on server as well)
+        await router.push({ name: ROUTE_CATEGORY_LIST_NAME, params: { categoryId: route.params.categoryId } });
       } catch (error) {
         handleError(error);
       }
@@ -118,6 +129,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       handleUpdateAnswerValue,
+      handleComplete,
       InputTypeEnum,
     };
   },
@@ -130,6 +142,7 @@ export default defineComponent({
   margin-bottom: 100px;
   display: flex;
   flex-flow: column;
+  align-items: center;
   row-gap: 50px;
 
   .questions-container {
@@ -146,9 +159,13 @@ export default defineComponent({
       row-gap: 25px;
     }
   }
+
+  .complete-button {
+    margin-top: 30px;
+  }
 }
 .loading-message {
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
