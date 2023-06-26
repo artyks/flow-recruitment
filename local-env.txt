@@ -1,1 +1,17 @@
 # Example of .local.env
+
+NODE_ENV=development
+
+BE_PROTOCOL='http://'
+VUE_APP_BE_PROTOCOL='http://'
+
+BE_HOST='0.0.0.0'
+VUE_APP_BE_HOST='0.0.0.0'
+
+BE_PORT=4000
+VUE_APP_BE_PORT=4000
+
+BE_GLOBAL_PREFIX='api'
+VUE_APP_BE_GLOBAL_PREFIX='api'
+
+DB_URL="postgresql://...."
