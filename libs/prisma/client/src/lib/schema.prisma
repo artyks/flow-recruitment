@@ -56,9 +56,9 @@ model FormQuestion {
 
 model FormQuestionVisibilityRule {
   id                       String       @id @default(uuid())
-  question                 FormQuestion @relation("Question", fields: [questionId], references: [id])
+  question                 FormQuestion @relation("Question", fields: [questionId], references: [id], onDelete: Cascade)
   questionId               String
-  dependOnQuestion         FormQuestion @relation("DependOnQuestion", fields: [dependOnQuestionId], references: [id])
+  dependOnQuestion         FormQuestion @relation("DependOnQuestion", fields: [dependOnQuestionId], references: [id], onDelete: Cascade)
   dependOnQuestionId       String
   requiredValueString      String?
   requiredValueArrayString String[]
@@ -68,9 +68,9 @@ model FormQuestionVisibilityRule {
 
 model FormResponse {
   id          String               @id @default(uuid())
-  user        User                 @relation(fields: [userId], references: [id])
+  user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
-  form        Form                 @relation(fields: [formId], references: [id])
+  form        Form                 @relation(fields: [formId], references: [id], onDelete: Cascade)
   formId      String
   isCompleted Boolean              @default(false)
   answers     FormResponseAnswer[]
@@ -80,9 +80,9 @@ model FormResponse {
 
 model FormResponseAnswer {
   id               String       @id @default(uuid())
-  question         FormQuestion @relation(fields: [questionId], references: [id])
+  question         FormQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId       String
-  response         FormResponse @relation(fields: [responseId], references: [id])
+  response         FormResponse @relation(fields: [responseId], references: [id], onDelete: Cascade)
   responseId       String
   valueString      String?
   valueArrayString String[]

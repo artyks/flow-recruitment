@@ -29,6 +29,10 @@
         </button>
       </div>
     </div>
+
+    <div class="box" :style="{ marginTop: '50px' }">
+      <button @click="handleReset">Reset all responses</button>
+    </div>
   </div>
 </template>
 
@@ -42,6 +46,7 @@ import { handleError } from '../../common/utility/error-handler.utility';
 import { FormType } from '@flow-recruitment/forms/constants';
 import { findMyUncompletedFormResponses } from './api/find-my-uncompleted-form-responses.api';
 import { findAllProductCategories } from './api/find-all-product-categories.api';
+import { deleteAllFormResponses } from '../../common/api/delete-all-form-responses.api';
 
 type State = {
   uncompletedFormResponses: FindMyUncompletedFormResponsesResult;
@@ -72,6 +77,15 @@ export default defineComponent({
       state.productCategories = productCategories;
     };
 
+    const handleReset = async () => {
+      try {
+        await deleteAllFormResponses();
+        state.uncompletedFormResponses = [];
+      } catch (error) {
+        handleError(error);
+      }
+    };
+
     const routeToForm = async (formId: string, formType: FormType, categoryId?: string) => {
       try {
         /**
@@ -100,6 +114,7 @@ export default defineComponent({
       routeToForm,
       ...toRefs(state),
       FormType,
+      handleReset,
     };
   },
 });

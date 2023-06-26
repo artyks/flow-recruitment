@@ -12,6 +12,7 @@ import * as crypto from 'crypto';
 import { FormQuestionsService } from '../form-questions';
 
 type CreateFormResponsePayload = CreateFormResponseDto & WithUserId;
+type DeleteAllFormResponsesPayload = WithUserId;
 type FindMyFormResponsePayload = FindOrCreateMyFormResponseByFormIdDto & WithUserId;
 type FindMyUncompletedFormResponsesPayload = WithUserId;
 
@@ -70,5 +71,9 @@ export class FormResponsesService {
       where: { id: formResponseId },
       include: { answers: true },
     });
+  }
+
+  async deleteAll({ userId }: DeleteAllFormResponsesPayload) {
+    return await this.prisma.formResponse.deleteMany({ where: { userId } });
   }
 }

@@ -3,7 +3,7 @@ import {
   FIND_MY_UNCOMPLETED_FORM_RESPONSES_SLUG,
   FIND_OR_CREATE_MY_FORM_RESPONSE_SLUG,
 } from '@flow-recruitment/forms/constants';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { FindOrCreateMyFormResponseByFormIdDto } from '@flow-recruitment/forms/dtos';
 import { User } from '@flow-recruitment/common/decorators';
 import { UserWithoutPassword } from '@flow-recruitment/users/types';
@@ -47,5 +47,10 @@ export class FormResponsesController {
       return responsePersisted;
     }
     return await this.formResponsesService.createOne({ formId, userId });
+  }
+
+  @Delete()
+  async deleteAll(@User() { id: userId }: UserWithoutPassword) {
+    return await this.formResponsesService.deleteAll({ userId });
   }
 }
