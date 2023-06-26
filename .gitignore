@@ -45,3 +45,4 @@ prisma-generated
 
 #other
 *.playground.ts
+.zip
