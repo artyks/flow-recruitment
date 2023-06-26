@@ -113,9 +113,9 @@ The plan for Day 4 is the following:
 
 - [x] add choice options to question schema [fix - author forgot about them]
 - [x] inject default user onto request
-- [ ] configure frontend app
-- [ ] implement frontend api layer
-- [ ] develop frontend templates (html/css)
-- [ ] implement frontend logic
-- [ ] test if it works :)
+- [x] configure frontend app
+- [x] implement frontend api layer
+- [x] develop frontend templates (html/css)
+- [x] implement frontend logic
+- [x] test if it works :)
 - [ ] pack the project into container
