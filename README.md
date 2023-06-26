@@ -6,6 +6,46 @@ The general idea of the application is to allow potential customers to use offer
 
 We will take vehicle insurance offers, and car deals as our example product categories.
 
+## Installation <a name="installation"/>
+
+Run docker compose:
+
+```sh
+docker compose up
+```
+
+OR:
+
+Project requires [Node.js](https://nodejs.org/) 18.16.0 to run. If you have nvm package installed, then:
+
+```sh
+nvm use
+```
+
+Install dependencies:
+
+```sh
+npm install
+```
+
+Generate prisma types:
+
+```sh
+npm run prisma:generate
+```
+
+Serve apps:
+
+```sh
+npm run start
+```
+
+Don't forget to create '.local.env' file at the root directory. Check out its example in './local-env.txt'.
+
+## Note
+
+1. Author forgot to implement api endpoint for actually completing the form. So they always stay uncompleted.
+
 ## Mindflow
 
 ### Day 1
@@ -119,3 +159,19 @@ The plan for Day 4 is the following:
 - [x] implement frontend logic
 - [x] test if it works :)
 - [ ] pack the project into container
+
+### Day 5
+
+The plan for Day 5 is the following:
+
+- pack the project into container
+- fix some bugs
+- update form fixtures
+- update Readme with instruction
+
+#### Results:
+
+- [x] pack the project into container
+- [x] fix some bugs
+- [x] update form fixtures
+- [x] update Readme with instruction

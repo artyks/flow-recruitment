@@ -7,7 +7,6 @@ import { PrismaClientService } from '@flow-recruitment/prisma/client';
 import { Injectable } from '@nestjs/common';
 import { FormResponseAnswersService } from '../form-response-answers/form-response-answers.service';
 import { WithUserId } from '@flow-recruitment/common/types';
-import { callWithInjectedPrismaTransaction } from '@flow-recruitment/prisma/utilities';
 import * as crypto from 'crypto';
 import { FormQuestionsService } from '../form-questions';
 
