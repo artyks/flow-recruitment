@@ -7,14 +7,14 @@
     "db-push": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "prisma db push --schema src/lib/schema.prisma",
+        "command": "npx prisma db push --schema src/lib/schema.prisma",
         "cwd": "libs/prisma/client"
       }
     },
     "generate": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "prisma generate --schema src/lib/schema.prisma",
+        "command": "npx prisma generate --schema src/lib/schema.prisma",
         "cwd": "libs/prisma/client"
       }
     },

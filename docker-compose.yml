@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  # Api App
+  app-1:
+    extends:
+      file: docker-compose.base.yml
+      service: nx-app-base
+    command: npm run docker:api:dev
+    ports:
+      - 4000:4000
+
+  # Client App
+  app-2:
+    extends:
+      file: docker-compose.base.yml
+      service: nx-app-base
+    command: npm run docker:client:dev
+    ports:
+      - 8080:8080
+
+volumes:
+  mono-node-modules: null
