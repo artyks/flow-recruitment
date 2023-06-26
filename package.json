@@ -11,7 +11,7 @@
     "start": "nx run-many --target=serve --projects=api,client",
     "docker:api:dev": "nx run prisma-client:generate && nx serve api --host=0.0.0.0",
     "docker:client:dev": "nx run prisma-client:generate && nx serve client --host=0.0.0.0",
-    "build": "nx run-many --target=build --projects=api,client",
+    "build": "nx run prisma-client:generate && nx run-many --target=build --projects=api,client",
     "prisma:generate": "nx run prisma-client:generate"
   },
   "private": true,

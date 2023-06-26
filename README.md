@@ -8,14 +8,6 @@ We will take vehicle insurance offers, and car deals as our example product cate
 
 ## Installation <a name="installation"/>
 
-Run docker compose:
-
-```sh
-docker compose up
-```
-
-OR:
-
 Project requires [Node.js](https://nodejs.org/) 18.16.0 to run. If you have nvm package installed, then:
 
 ```sh
@@ -38,6 +30,16 @@ Serve apps:
 
 ```sh
 npm run start
+```
+
+OR:
+
+> Smth wrong with Docker setup, app works unstable... So please go with an option above.
+
+Run docker compose:
+
+```sh
+docker compose up
 ```
 
 Don't forget to create '.local.env' file at the root directory. Check out its example in './local-env.txt'.
