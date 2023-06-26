@@ -4,19 +4,39 @@ import { FormConfig } from './fixtures.types';
 const VehicleInsurancePurchaseConfig: FormConfig = {
   type: FormType.PURCHASE,
   questions: [
-    { inputType: FormQuestionInputTypeEnum.TEXT, title: 'When would you like your new policy to be in effect?' },
-    { inputType: FormQuestionInputTypeEnum.TEXT, title: 'What type of vehicle are you insuring?' },
-    { inputType: FormQuestionInputTypeEnum.TEXT, title: 'What is the production year of your vehicle?' },
-    { inputType: FormQuestionInputTypeEnum.TEXT, title: 'What is the brand of your vehicle?' },
-    { inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE, title: 'What type of fuel does your vehicle use?' },
-    { inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE, title: 'What is the engine cap of your vehicle?' },
-    { inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE, title: 'How many doors does your vehicle have?' },
+    {
+      inputType: FormQuestionInputTypeEnum.TEXT,
+      title: "It's a VehicleInsurancePurchase Form? :)",
+    },
+    {
+      inputType: FormQuestionInputTypeEnum.TEXT,
+      title: "What's your first name?",
+    },
+    {
+      inputType: FormQuestionInputTypeEnum.TEXT,
+      title: "What's your last name?",
+    },
+    {
+      inputType: FormQuestionInputTypeEnum.TEXT,
+      title: 'Type your address',
+    },
     {
       inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE,
-      title: 'Where is the steering wheel location in your vehicle?',
+      title: '(Try USD) Choose currency',
+      choiceOptions: ['PLN', 'USD'],
+      anchor: 'currency',
     },
-    { inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE, title: 'Is your vehicle leased?' },
-    { inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE, title: 'How many co-owners does the vehicle have?' },
+    {
+      inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE,
+      title: 'Are you sure about USD?',
+      choiceOptions: ['PLN', 'USD'],
+      visibilityRules: [{ dependOnAnchor: 'currency', requiredValueString: 'USD' }],
+    },
+    {
+      inputType: FormQuestionInputTypeEnum.MULTIPLE_CHOICE,
+      title: 'Choose delivery days',
+      choiceOptions: ['26.07', '28.07', '29.07'],
+    },
   ],
 };
 

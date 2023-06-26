@@ -1,5 +1,4 @@
 import { FormQuestionInputTypeEnum, FormType } from '@flow-recruitment/forms/constants';
-import { YesNoOptions } from './fixtures.utiity';
 import { FormConfig } from './fixtures.types';
 
 const CarDealSearchConfig: FormConfig = {
@@ -7,51 +6,51 @@ const CarDealSearchConfig: FormConfig = {
   questions: [
     {
       inputType: FormQuestionInputTypeEnum.TEXT,
-      title: 'When would you like your new policy to be in effect?',
+      title: "It's a CarDealSearch Form? :)",
     },
-    { inputType: FormQuestionInputTypeEnum.TEXT, title: 'What type of vehicle are you insuring?' },
-    { inputType: FormQuestionInputTypeEnum.TEXT, title: 'What is the production year of your vehicle?' },
-    { inputType: FormQuestionInputTypeEnum.TEXT, title: 'What is the brand of your vehicle?' },
+    {
+      inputType: FormQuestionInputTypeEnum.TEXT,
+      title: 'Which manufacturers are you interested in?',
+    },
+    {
+      inputType: FormQuestionInputTypeEnum.TEXT,
+      title: 'Which car model are you interested in?',
+    },
+    {
+      inputType: FormQuestionInputTypeEnum.TEXT,
+      title: 'Which production year are you looking for?',
+    },
+    {
+      inputType: FormQuestionInputTypeEnum.TEXT,
+      title: 'What is your budget range for purchasing the car?',
+    },
     {
       inputType: FormQuestionInputTypeEnum.MULTIPLE_CHOICE,
-      title: 'What type of fuel does your vehicle use?',
-      choiceOptions: ['Diesel', 'Petrol', 'Electric', 'Hybrid'],
-      anchor: 'fuel-type',
+      title: '(TRY Automatic) Do you prefer a certain type of transmission?',
+      choiceOptions: ['Automatic', 'Manual'],
+      anchor: 'transmission',
     },
     {
       inputType: FormQuestionInputTypeEnum.TEXT,
-      title: "[1] Hooray! It's a question with conditonal visibility rule based on Diesel and Petrol :)",
-      visibilityRules: [{ dependOnAnchor: 'fuel-type', requiredValueArrayString: ['Diesel', 'Petrol'] }],
+      title: 'What type of fuel do you prefer for your car?',
+      visibilityRules: [{ dependOnAnchor: 'transmission', requiredValueArrayString: ['Automatic'] }],
     },
     {
-      inputType: FormQuestionInputTypeEnum.TEXT,
-      title: 'What is the engine cap of your vehicle?',
+      inputType: FormQuestionInputTypeEnum.MULTIPLE_CHOICE,
+      title: 'Do you have a preferred color for your car?',
+      choiceOptions: ['Black', 'White', 'Red'],
     },
     {
       inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE,
-      title: 'How many doors does your vehicle have?',
+      title: '(TRY 4) How many doors do you prefer your car to have?',
       choiceOptions: ['2', '4', '5'],
+      anchor: 'doors',
     },
     {
       inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE,
-      title: 'Where is the steering wheel location in your vehicle?',
-      choiceOptions: ['Left', 'Right'],
-    },
-    {
-      inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE,
-      title: 'Is your vehicle leased?',
-      choiceOptions: YesNoOptions,
-      anchor: 'is-leased',
-    },
-    {
-      inputType: FormQuestionInputTypeEnum.TEXT,
-      title: "[2] Hooray! It's a question with conditonal visibility rule :)",
-      visibilityRules: [{ dependOnAnchor: 'is-leased', requiredValueString: 'Yes' }],
-    },
-    {
-      inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE,
-      title: 'How many co-owners does the vehicle have?',
-      choiceOptions: ['0', '1', '2'],
+      title: 'Are you looking for a new car, a used car, or are you open to both?',
+      choiceOptions: ['New', 'Used', 'Both'],
+      visibilityRules: [{ dependOnAnchor: 'doors', requiredValueString: '4' }],
     },
   ],
 };
