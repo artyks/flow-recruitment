@@ -62,7 +62,7 @@ export class FormResponsesService {
     /**
      * Create response's answers
      */
-    this.responseAnswersService.createMany({ formResponseId, answerDtos });
+    await this.responseAnswersService.createMany({ formResponseId, answerDtos });
 
     /**
      * Retrieve and return created response filled with answers

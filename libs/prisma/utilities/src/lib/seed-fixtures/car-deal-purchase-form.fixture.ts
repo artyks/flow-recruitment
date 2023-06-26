@@ -1,5 +1,6 @@
 import { FormQuestionInputTypeEnum, FormType } from '@flow-recruitment/forms/constants';
 import { FormConfig } from './fixtures.types';
+import { YesNoOptions } from './fixtures.utiity';
 
 const CarDealPurchaseConfig: FormConfig = {
   type: FormType.PURCHASE,
@@ -29,7 +30,7 @@ const CarDealPurchaseConfig: FormConfig = {
     {
       inputType: FormQuestionInputTypeEnum.SINGLE_CHOICE,
       title: 'Are you sure about USD?',
-      choiceOptions: ['PLN', 'USD'],
+      choiceOptions: YesNoOptions,
       visibilityRules: [{ dependOnAnchor: 'currency', requiredValueString: 'USD' }],
     },
     {
